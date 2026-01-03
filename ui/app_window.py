@@ -7,20 +7,27 @@ class SmartPriceApp(ctk.CTk):
     def __init__(self):
         super().__init__()
         
-        self.title("SmartPrice Predictor - Moteur de Décomposition LU")
-        self.geometry("1100x700")
+        self.title("SmartPrice Predictor - Solution de Stratégie Commerciale")
+        self.geometry("1100x750")
         
         # Grid Configuration
         self.grid_columnconfigure(1, weight=1)
-        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=1) # Row 1 is the main content area
+        
+        # Header (Business Context)
+        self.header_frame = ctk.CTkFrame(self, height=50, fg_color="transparent")
+        self.header_frame.grid(row=0, column=0, columnspan=2, sticky="ew", padx=20, pady=(10,0))
+        
+        ctk.CTkLabel(self.header_frame, text="Assistant de Décision Stratégique", font=("Roboto", 20, "bold")).pack(side="left")
+        ctk.CTkLabel(self.header_frame, text="|  Optimisez vos marges via l'analyse d'équilibre de marché", font=("Roboto", 14), text_color="gray").pack(side="left", padx=10)
         
         # Left Sidebar (Inputs)
         self.input_panel = InputPanel(self, calculate_callback=self.handle_calculation, width=300)
-        self.input_panel.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+        self.input_panel.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
         
         # Right Content Area
         self.right_frame = ctk.CTkFrame(self, fg_color="transparent")
-        self.right_frame.grid(row=0, column=1, sticky="nsew", padx=(0, 10), pady=10)
+        self.right_frame.grid(row=1, column=1, sticky="nsew", padx=(0, 10), pady=10)
         self.right_frame.grid_rowconfigure(1, weight=1)
         self.right_frame.grid_columnconfigure(0, weight=1)
         

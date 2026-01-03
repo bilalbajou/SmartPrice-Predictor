@@ -47,8 +47,8 @@ class InputPanel(ctk.CTkFrame):
         n = int(self.size_var.get())
         
         # Matrix A Header
-        ctk.CTkLabel(self.matrix_frame, text="Matrice A (Facteurs d'Influence)", font=("Roboto", 12, "bold")).grid(row=0, column=0, columnspan=n, pady=(5,0))
-        ctk.CTkLabel(self.matrix_frame, text="(Coûts, Élasticité, Concurrence)", font=("Roboto", 10), text_color="gray").grid(row=1, column=0, columnspan=n, pady=(0,5))
+        ctk.CTkLabel(self.matrix_frame, text="1. Paramètres d'Influence", font=("Roboto", 12, "bold")).grid(row=0, column=0, columnspan=n, pady=(5,0))
+        ctk.CTkLabel(self.matrix_frame, text="(Coûts, Concurrence, Saisonalité)", font=("Roboto", 10), text_color="gray").grid(row=1, column=0, columnspan=n, pady=(0,5))
         
         for i in range(n):
             row_entries = []
@@ -62,8 +62,8 @@ class InputPanel(ctk.CTkFrame):
             self.a_entries.append(row_entries)
             
         # Vector b Header
-        ctk.CTkLabel(self.vector_frame, text="Vecteur b (Objectifs du Marché)", font=("Roboto", 12, "bold")).grid(row=0, column=0, columnspan=n, pady=(5,0))
-        ctk.CTkLabel(self.vector_frame, text="(Stock Max, Demande Cible)", font=("Roboto", 10), text_color="gray").grid(row=1, column=0, columnspan=n, pady=(0,5))
+        ctk.CTkLabel(self.vector_frame, text="2. Objectifs Commerciaux", font=("Roboto", 12, "bold")).grid(row=0, column=0, columnspan=n, pady=(5,0))
+        ctk.CTkLabel(self.vector_frame, text="(Volume Cible, Capacité Max)", font=("Roboto", 10), text_color="gray").grid(row=1, column=0, columnspan=n, pady=(0,5))
         
         for i in range(n):
             entry = ctk.CTkEntry(self.vector_frame, width=40, placeholder_text=f"b{i}")
@@ -95,7 +95,7 @@ class ResultPanel(ctk.CTkScrollableFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         
-        self.label = ctk.CTkLabel(self, text="Résultats d'Optimisation", font=("Roboto", 16, "bold"))
+        self.label = ctk.CTkLabel(self, text="Rapport d'Analyse Stratégique", font=("Roboto", 16, "bold"))
         self.label.pack(pady=10, padx=10, anchor="w")
         
         self.status_lbl = ctk.CTkLabel(self, text="Statut: En attente", text_color="gray")
@@ -123,13 +123,14 @@ class ResultPanel(ctk.CTkScrollableFrame):
                 res += f"  - Variable {i+1} : {val:.2f}\n"
             
             res += "\n--------------------------------------------------\n"
-            res += "DÉTAILS TECHNIQUES (Matrices LU):\n"
+            res += "ANNEXE TECHNIQUE (Pour Analystes):\n"
+            res += "Décomposition LU effectuée pour valider la robustesse du modèle.\n\n"
             
-            res += "Matrice L (Facteurs Dérivés):\n"
+            res += "Facteurs de Scaling (L):\n"
             for row in data['L']:
                 res += str([round(x, 2) for x in row]) + "\n"
             
-            res += "\nMatrice U (Échelonnage):\n"
+            res += "\nMatrice Échelonnée (U):\n"
             for row in data['U']:
                 res += str([round(x, 2) for x in row]) + "\n"
                 
